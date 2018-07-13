@@ -26,27 +26,27 @@ function renderMonth(month)
 
 
    //Create month html container
-   var month = document.createElement('table');
+   var monthHTML = document.createElement('table');
    //Create name title html container
-   var monthTitle = document.createElement('caption');
+   var monthTitleHTML = document.createElement('caption');
   
   //Create calendar month header html container
-   var monthHeader = document.createElement('thead');
-   //Create html row header container
-   var monthHeaderRow = document.createElement('tr');
+   var monthHeaderHTML = document.createElement('thead');
+   //Create row container
+   var monthHeaderRowHTML = document.createElement('tr');
    //Create html body container 
-   var monthBody = document.createElement('tbody');
+   var monthBodyHTML = document.createElement('tbody');
    
    //Set month name text
-   var stringName =monthNames[month.getMonthIndex];
-   monthTitle.innerHTML =stringName;
+   monthTitleHTML.innerHTML =monthNames[month.getMonthIndex];
+   
    var i;
    for ( i = 0; i < weekDaysNames.length; i++) {
-     var cell = document.createElement('td');
-     cell.innerHTML = weekDaysNames[i];
-     monthHeaderRow.appendChild(cell);
+     var cellHTML = document.createElement('td');
+     cellHTML.innerHTML = weekDaysNames[i];
+     monthHeaderRowHTML.appendChild(cellHTML);
    }
-   monthHeader.appendChild(monthHeaderRow);
+   monthHeaderHTML.appendChild(monthHeaderRowHTML);
    
    
    var cellCounter = 0;
@@ -54,33 +54,33 @@ function renderMonth(month)
  
    for(i=0; i < 7; i++){
      if(daysCounter <= lastMonthDay.getDate()){
-       var row = document.createElement('tr');
+       var rowHTML = document.createElement('tr');
        for(j=0; j < 7; j++){
-            var column = document.createElement('td');
+            var columnHTML = document.createElement('td');
             var columnId = "cell"+i+j;
             if( cellCounter >= month.firstMonthDayNameIndex && daysCounter <= lastMonthDay.getDate()) { 
-             column.innerHTML = daysCounter++;
+             columnHTML.innerHTML = daysCounter++;
              if(j == 0 || j == 6){
-               column.className += "weekend-day"
+               columnHTML.className += "weekend-day"
              }else{
-               column.className += "day"
+               columnHTML.className += "day"
              }
             }else{
-              column.className += "empty-cell"
+              columnHTML.className += "empty-cell"
             }
-            column.className += " cell"
+            columnHTML.className += " cell"
             cellCounter++;
-            row.appendChild(column);
+            rowHTML.appendChild(columnHTML);
        }
-       monthBody.appendChild(row);
+       monthBodyHTML.appendChild(rowHTML);
      }
    }
 
- month.appendChild( monthHeader );
-   month.appendChild( monthTitle );
+   monthHTML.appendChild( monthHeaderHTML );
+   monthHTML.appendChild( monthTitleHTML );
   
-   month.appendChild( monthBody );
-   var month = document.getElementById('calendar').appendChild(month)  ;
+   monthHTML.appendChild( monthBodyHTML );
+   document.getElementById('calendar').appendChild(monthHTML)  ;
    
 }
 
@@ -92,7 +92,7 @@ class Month {
       this.firstDay.getMonth();
       this.mm = this.firstDay.getMonth();
       this.yyyy = this.firstDay.getFullYear();
-      var dd = this.firstDay.getDate()+ this.ammountOfDays;
+      var dd = this.firstDay.getDate()+ (this.ammountOfDays-1);
       this.lastMonthDay = new Date(this.yyyy,this.mm,dd);
    }
   
