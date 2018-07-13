@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="../js/jquery-3.3.1.min.js"></script>
+   <script src="../js/script.js"></script>
+   <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+   <form id="user-inputs">
+   Start Date:<br/>
+   <input type="date" id="startDate" name="startDate" required /><br/>
+   Number of days:<br/>
+   <input type="number" id="ammountOfDaysmmountOfDays" name="AmmountOfDaysmmountOfDays" required /><br/>
+   Country Code:<br/>
+   <input type="text" id="countryCode" name="CountryCode" required /><br/>
+   <button id="generate" onclick="createCalendar()" type="button">Generate Calendar!</button>
+   </form>
+   <div id="calendar">
+   </div>
+
+</body>
+</html> 
