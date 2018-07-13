@@ -5,13 +5,37 @@ function createCalendar(){
    var inputDate = document.getElementById("startDate").value.split('-');
    var code = document.getElementById("countryCode").value;
    
-   var firstDay = new Date(inputDate);
-   var month = new Month(firstDay, ammountOfDays);
-  
-   renderMonth(month);
+   var firstCalendarDay = new Date(inputDate);
+   //Last day selected by the user
+   var lastCalendarDay =  new Date(firstCalendarDay);
+   lastCalendarDay.setDate(lastCalendarDay.getDate() + Number(ammountOfDays-1));
+   
+   //Inital day for the first month
+   var initialCurrentMonthDate = firstCalendarDay;
+   //Last day for current month
+   var initialCurrentLastMonthDate = getLastMonthDayDate(initialCurrentMonthDate.getFullYear(),initialCurrentMonthDate.getMonth());
+   
+   var monthsCounter = 0;
+    while(lastCalendarDay > initialCurrentLastMonthDate ){
+      var month = new Month(initialCurrentMonthDate, initialCurrentLastMonthDate,ammountOfDays);
+      renderMonth(month);
+      initialCurrentMonthDate.setDate(initialCurrentLastMonthDate.getDate()+1);
+      initialCurrentLastMonthDate = getLastMonthDayDate(initialCurrentMonthDate.getFullYear(),initialCurrentMonthDate.getMonth());
+     
+   }
+   if(lastCalendarDay < initialCurrentLastMonthDate){
+         initialCurrentLastMonthDate = lastCalendarDay;
+         var month = new Month(initialCurrentMonthDate, initialCurrentLastMonthDate,ammountOfDays);
+      renderMonth(month);
+   }
+   
+   
 
 }
 
+function getLastMonthDayDate(y,m){
+   return new Date(y, m + 1, 0);
+}
 function renderMonth(month) 
 {
    anmountOfDays = month.anmountOfDays;
@@ -85,18 +109,15 @@ function renderMonth(month)
 }
 
 class Month {
-   constructor(firstDay, ammountOfDays) {
+   constructor(firstDay, lastMonthDay, ammountOfDays) {
       this.ammountOfDays = ammountOfDays;
       this.firstDay = firstDay;
       this.firstMonthDayNameIndex = firstDay.getDay();
-      this.firstDay.getMonth();
+      this.lastMonthDay = lastMonthDay;
       this.mm = this.firstDay.getMonth();
       this.yyyy = this.firstDay.getFullYear();
-      var dd = this.firstDay.getDate()+ (this.ammountOfDays-1);
-      this.lastMonthDay = new Date(this.yyyy,this.mm,dd);
    }
-  
-   
+
    //Returns the month number
    get getMonthIndex(){
       return this.mm ;
@@ -111,5 +132,12 @@ class Month {
    get getYear(){
       return this.yyyy;
    }
-
+   
+   get getAmmountOfMonthDays () {
+      return new Date(this.yyyy, this.mm, 0).getDate();
+   }
+   
+   get getLastMontDayDate(){
+      return new Date(this.yyyy, this.mm, this.getAmmountOfMonthDays+1);
+   }
 }
