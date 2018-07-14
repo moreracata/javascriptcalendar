@@ -1,3 +1,5 @@
+
+
 #user-inputs{
    border-radius: 25px;
    border: 2px solid #73AD21;
@@ -6,6 +8,10 @@
 
 #calendar{
    display:none;
+}
+
+#calendar table{
+   text-align: center;
 }
 
 #calendar .cell{
@@ -22,5 +28,13 @@
 
 #calendar .empty-cell{
    background-color:#808080a1;
-   min-width: 18px;
+   min-width: 30px;
+
+}
+#calendar  table, th, td {
+   border: 2px solid white;
+}
+
+#calendar .month-title{
+       background-color: #d3e675
 }

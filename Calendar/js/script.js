@@ -52,8 +52,11 @@ function renderMonth(month)
    //Create month html container
    var monthHTML = document.createElement('table');
    //Create name title html container
-   var monthTitleHTML = document.createElement('caption');
-  
+   var monthTitleHTML = document.createElement('tr');
+   var monthTitleTagHTML = document.createElement('td');
+   monthTitleTagHTML.setAttribute("colspan", "7");
+   monthTitleTagHTML.setAttribute("class", "month-title");
+     
   //Create calendar month header html container
    var monthHeaderHTML = document.createElement('thead');
    //Create row container
@@ -62,7 +65,9 @@ function renderMonth(month)
    var monthBodyHTML = document.createElement('tbody');
    
    //Set month name text
-   monthTitleHTML.innerHTML =monthNames[month.getMonthIndex];
+   monthTitleTagHTML.innerHTML =monthNames[month.getMonthIndex];
+   monthTitleHTML.appendChild(monthTitleTagHTML);
+   
    
    var i;
    for ( i = 0; i < weekDaysNames.length; i++) {
@@ -71,7 +76,8 @@ function renderMonth(month)
      monthHeaderRowHTML.appendChild(cellHTML);
    }
    monthHeaderHTML.appendChild(monthHeaderRowHTML);
-   
+   monthHeaderHTML.appendChild(monthTitleHTML);
+
    
    var cellCounter = 0;
    var daysCounter = firstDay.getDate();
@@ -101,7 +107,7 @@ function renderMonth(month)
    }
 
    monthHTML.appendChild( monthHeaderHTML );
-   monthHTML.appendChild( monthTitleHTML );
+  
   
    monthHTML.appendChild( monthBodyHTML );
    document.getElementById('calendar').appendChild(monthHTML)  ;
