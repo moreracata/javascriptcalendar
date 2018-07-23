@@ -1,6 +1,6 @@
 
 function createCalendar(){
- 
+    document.getElementById("calendar").innerHTML = "";
    var ammountOfDays = Number(document.getElementById("ammountOfDaysmmountOfDays").value);
    var inputDate = document.getElementById("startDate").value.split('-');
    var code = document.getElementById("countryCode").value;
@@ -15,19 +15,32 @@ function createCalendar(){
    //Last day for current month
    var initialCurrentLastMonthDate = getLastMonthDayDate(initialCurrentMonthDate.getFullYear(),initialCurrentMonthDate.getMonth());
    
-   var monthsCounter = 0;
-    while(lastCalendarDay > initialCurrentLastMonthDate ){
-      var month = new Month(initialCurrentMonthDate, initialCurrentLastMonthDate,ammountOfDays);
-      renderMonth(month);
-      initialCurrentMonthDate.setDate(initialCurrentLastMonthDate.getDate()+1);
-      initialCurrentLastMonthDate = getLastMonthDayDate(initialCurrentMonthDate.getFullYear(),initialCurrentMonthDate.getMonth());
-     
-   }
-   if(lastCalendarDay < initialCurrentLastMonthDate){
+   
+      var monthsCounter = 0;
+      var seguir = true;
+       while(seguir ){
+          if(lastCalendarDay.getTime() === initialCurrentLastMonthDate.getTime()){
+             
+            seguir = false;
+         }
+         var month = new Month(initialCurrentMonthDate, initialCurrentLastMonthDate,ammountOfDays);
+         renderMonth(month);
+         
+         //First day next month
+         initialCurrentMonthDate.setDate(initialCurrentLastMonthDate.getDate()+1);
+         //Last day next month
+         initialCurrentLastMonthDate = getLastMonthDayDate(initialCurrentMonthDate.getFullYear(),initialCurrentMonthDate.getMonth());
+         if(lastCalendarDay < initialCurrentLastMonthDate){
+            initialCurrentLastMonthDate = lastCalendarDay;
+         }
+      }
+   
+ 
+  /* if(lastCalendarDay == initialCurrentLastMonthDate){
          initialCurrentLastMonthDate = lastCalendarDay;
          var month = new Month(initialCurrentMonthDate, initialCurrentLastMonthDate,ammountOfDays);
       renderMonth(month);
-   }
+   }*/
    
    
 

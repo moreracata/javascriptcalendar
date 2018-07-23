@@ -32,7 +32,11 @@
 
 }
 #calendar  table, th, td {
-   border: 2px solid white;
+   border: 0px solid white;
+}
+
+#calendar  td {
+   min-width: 30px;
 }
 
 #calendar .month-title{
